@@ -1,0 +1,5 @@
+title: My First Jupyter Book
+author: Muhammad Danial Ahza Latif
+
+execute:
+  execute_notebooks: off
