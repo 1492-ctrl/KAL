@@ -4,3 +4,4 @@ root: intro
 chapters:
   - file: Sistem_persamaan_linier
   - file: adjoint_Matrix_5x5
+  - file: eigenvalue
