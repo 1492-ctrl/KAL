@@ -296,7 +296,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -312,6 +314,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-matrix-u">untuk matrix U</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-matrix-v">Untuk matrix V</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-matrix-sigma">Untuk Matrix Sigma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-matrix">Membuat Matrix</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -331,6 +344,8 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="untuk-matrix-u">
+<h2>untuk matrix U<a class="headerlink" href="#untuk-matrix-u" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculU</span><span class="p">(</span><span class="n">M</span><span class="p">):</span> 
@@ -344,10 +359,12 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="untuk-matrix-v">
+<h2>Untuk matrix V<a class="headerlink" href="#untuk-matrix-v" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="c1">#This function calculates the Eigenvectors corresponding for V matrice</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculVt</span><span class="p">(</span><span class="n">M</span><span class="p">):</span> 
     <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
         
@@ -359,9 +376,12 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="untuk-matrix-sigma">
+<h2>Untuk Matrix Sigma<a class="headerlink" href="#untuk-matrix-sigma" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Function that calculates Eigenvalues corresponding to the Sigma Matrix </span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculSigma</span><span class="p">(</span><span class="n">M</span><span class="p">):</span> 
     <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">M</span><span class="p">))):</span> 
         <span class="n">newM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span> 
@@ -376,6 +396,9 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="membuat-matrix">
+<h2>Membuat Matrix<a class="headerlink" href="#membuat-matrix" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Creating our matrix </span>
@@ -384,6 +407,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -431,6 +455,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-matrix-u">untuk matrix U</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-matrix-v">Untuk matrix V</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-matrix-sigma">Untuk Matrix Sigma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-matrix">Membuat Matrix</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
