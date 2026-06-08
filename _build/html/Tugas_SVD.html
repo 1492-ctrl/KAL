@@ -330,21 +330,7 @@ document.write(`
 <span class="c1"># EIGENFACES FACE RECOGNITION MENGGUNAKAN SVD</span>
 <span class="c1"># ==================================================</span>
 
-<span class="c1"># ==================================================</span>
-<span class="c1"># 1. Upload File</span>
-<span class="c1"># ==================================================</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Upload dataface.zip dan test.jpg&quot;</span><span class="p">)</span>
-<span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
-
-<span class="c1"># ==================================================</span>
-<span class="c1"># 2. Import Library</span>
-<span class="c1"># ==================================================</span>
-
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
@@ -353,53 +339,57 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 3. Cek File</span>
+<span class="c1"># KONFIGURASI</span>
 <span class="c1"># ==================================================</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">File dalam Colab:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">())</span>
-
-<span class="k">if</span> <span class="s2">&quot;dataface.zip&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">():</span>
-    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-        <span class="s2">&quot;dataface.zip tidak ditemukan&quot;</span>
-    <span class="p">)</span>
-
-<span class="k">if</span> <span class="s2">&quot;test.jpg&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">():</span>
-    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-        <span class="s2">&quot;test.jpg tidak ditemukan&quot;</span>
-    <span class="p">)</span>
-
-<span class="c1"># ==================================================</span>
-<span class="c1"># 4. Extract ZIP</span>
-<span class="c1"># ==================================================</span>
-
-<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span>
-    <span class="s2">&quot;dataface.zip&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r&quot;</span>
-<span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-
-    <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Isi Folder Setelah Extract:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">())</span>
-
-<span class="c1"># ==================================================</span>
-<span class="c1"># 5. Konfigurasi</span>
-<span class="c1"># ==================================================</span>
-
-<span class="n">folder_dataset</span> <span class="o">=</span> <span class="s2">&quot;dataface&quot;</span>
-<span class="n">file_test</span> <span class="o">=</span> <span class="s2">&quot;test.jpg&quot;</span>
+<span class="n">folder_dataset</span> <span class="o">=</span> <span class="s2">&quot;dataset&quot;</span>
+<span class="n">file_test</span> <span class="o">=</span> <span class="s2">&quot;images/test.jpg&quot;</span>
 
 <span class="n">ukuran_gambar</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">jumlah_komponen</span> <span class="o">=</span> <span class="mi">10</span>
 
+<span class="c1"># ==================================================</span>
+<span class="c1"># CEK FILE</span>
+<span class="c1"># ==================================================</span>
+
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder_dataset</span><span class="p">):</span>
     <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-        <span class="s2">&quot;Folder dataface tidak ditemukan&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Folder &#39;</span><span class="si">{</span><span class="n">folder_dataset</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan&quot;</span>
+    <span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_test</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;File &#39;</span><span class="si">{</span><span class="n">file_test</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan&quot;</span>
     <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 6. Fungsi Membaca Gambar</span>
+<span class="c1"># TAMPILKAN STRUKTUR DATASET</span>
+<span class="c1"># ==================================================</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===== DATASET =====&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">orang</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder_dataset</span><span class="p">):</span>
+
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">folder_dataset</span><span class="p">,</span>
+        <span class="n">orang</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+
+        <span class="n">jumlah</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span>
+            <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span>
+                <span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span><span class="s2">&quot;.jpeg&quot;</span><span class="p">,</span><span class="s2">&quot;.png&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">])</span>
+
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">orang</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">jumlah</span><span class="si">}</span><span class="s2"> gambar&quot;</span>
+        <span class="p">)</span>
+
+<span class="c1"># ==================================================</span>
+<span class="c1"># FUNGSI MEMBACA GAMBAR</span>
 <span class="c1"># ==================================================</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">baca_gambar</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -420,7 +410,7 @@ document.write(`
     <span class="k">return</span> <span class="n">matriks</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 7. Membaca Dataset</span>
+<span class="c1"># MEMBACA DATASET</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">data_wajah</span> <span class="o">=</span> <span class="p">[]</span>
@@ -469,27 +459,28 @@ document.write(`
     <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 8. Informasi Dataset</span>
+<span class="c1"># INFORMASI DATASET</span>
 <span class="c1"># ==================================================</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== DATASET =====&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== INFORMASI DATASET =====&quot;</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Jumlah gambar :&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Jumlah gambar:&quot;</span><span class="p">,</span>
     <span class="n">data_wajah</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Jumlah pixel :&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Jumlah pixel:&quot;</span><span class="p">,</span>
     <span class="n">data_wajah</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Ukuran matriks A :&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ukuran matriks A:&quot;</span><span class="p">,</span>
     <span class="n">data_wajah</span><span class="o">.</span><span class="n">shape</span>
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 9. Mean Face</span>
+<span class="c1"># MEAN FACE</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">rata_rata_wajah</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
@@ -503,19 +494,22 @@ document.write(`
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== MEAN FACE =====&quot;</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;Ukuran Mean Face:&quot;</span><span class="p">,</span>
     <span class="n">rata_rata_wajah</span><span class="o">.</span><span class="n">shape</span>
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 10. SVD</span>
+<span class="c1"># SVD</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">U</span><span class="p">,</span><span class="n">S</span><span class="p">,</span><span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span>
     <span class="n">data_tengah</span><span class="p">,</span>
     <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
+
+<span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== SVD =====&quot;</span><span class="p">)</span>
 
@@ -534,13 +528,14 @@ document.write(`
     <span class="n">VT</span><span class="o">.</span><span class="n">shape</span>
 <span class="p">)</span>
 
-<span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">5x5 Sigma Pertama&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Matriks Sigma:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Sigma</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="n">Sigma</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:</span><span class="mi">5</span><span class="p">]</span>
+<span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 11. Eigenfaces</span>
+<span class="c1"># EIGENFACES</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">k</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
@@ -563,7 +558,7 @@ document.write(`
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 12. Fitur Training</span>
+<span class="c1"># PROYEKSI TRAINING</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">fitur_training</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
@@ -577,7 +572,7 @@ document.write(`
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 13. Wajah Test</span>
+<span class="c1"># WAJAH TEST</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">wajah_test</span> <span class="o">=</span> <span class="n">baca_gambar</span><span class="p">(</span>
@@ -600,7 +595,7 @@ document.write(`
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 14. Euclidean Distance</span>
+<span class="c1"># EUCLIDEAN DISTANCE</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">jarak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
@@ -633,24 +628,27 @@ document.write(`
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 15. Hasil Identifikasi</span>
+<span class="c1"># HASIL IDENTIFIKASI</span>
 <span class="c1"># ==================================================</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== HASIL =====&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== HASIL FACE RECOGNITION =====&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Nama:&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Identitas:&quot;</span><span class="p">,</span>
     <span class="n">hasil_nama</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;File:&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;File terdekat:&quot;</span><span class="p">,</span>
     <span class="n">hasil_path</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;Jarak:&quot;</span><span class="p">,</span>
-    <span class="n">jarak_min</span>
+    <span class="nb">round</span><span class="p">(</span>
+        <span class="n">jarak_min</span><span class="p">,</span>
+        <span class="mi">2</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
@@ -663,7 +661,7 @@ document.write(`
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 16. Verifikasi SVD</span>
+<span class="c1"># VERIFIKASI SVD</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">A_rekonstruksi</span> <span class="o">=</span> <span class="p">(</span>
@@ -683,7 +681,7 @@ document.write(`
 <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 17. Tampilkan Test dan Hasil</span>
+<span class="c1"># TAMPILKAN TEST DAN HASIL</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">gambar_test</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
@@ -735,7 +733,7 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 18. Mean Face</span>
+<span class="c1"># MEAN FACE</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span>
@@ -758,7 +756,7 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 19. Tampilkan Eigenfaces</span>
+<span class="c1"># EIGENFACES</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">jumlah_tampil</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
@@ -796,14 +794,14 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 20. Slider Eigenface</span>
+<span class="c1"># SLIDER EIGENFACE</span>
 <span class="c1"># ==================================================</span>
+
+<span class="nd">@interact</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">tampilkan_eigenface</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span>
-        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
         <span class="n">eigenfaces</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
@@ -820,19 +818,8 @@ document.write(`
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">interact</span><span class="p">(</span>
-    <span class="n">tampilkan_eigenface</span><span class="p">,</span>
-    <span class="n">index</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="nb">max</span><span class="o">=</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Eigenface&quot;</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-
 <span class="c1"># ==================================================</span>
-<span class="c1"># 21. Grafik Eigenvalue</span>
+<span class="c1"># EIGENVALUE</span>
 <span class="c1"># ==================================================</span>
 
 <span class="n">AA_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
@@ -862,7 +849,7 @@ document.write(`
         <span class="nb">len</span><span class="p">(</span><span class="n">eigenvalue</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
     <span class="p">),</span>
     <span class="n">eigenvalue</span><span class="p">,</span>
-    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span>
 <span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
@@ -881,12 +868,34 @@ document.write(`
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Eigenvalue:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eigenvalue</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">5 Eigenvalue Terbesar&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+    <span class="nb">min</span><span class="p">(</span>
+        <span class="mi">5</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">eigenvalue</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;λ</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">eigenvalue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
 
 <span class="c1"># ==================================================</span>
-<span class="c1"># 22. Rekonstruksi Wajah</span>
+<span class="c1"># REKONSTRUKSI WAJAH</span>
 <span class="c1"># ==================================================</span>
+
+<span class="nd">@interact</span><span class="p">(</span>
+    <span class="n">k_rek</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span>
+            <span class="mi">50</span><span class="p">,</span>
+            <span class="n">VT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">),</span>
+        <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;k&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">rekonstruksi_wajah</span><span class="p">(</span><span class="n">k_rek</span><span class="p">):</span>
 
@@ -913,69 +922,90 @@ document.write(`
         <span class="n">hasil</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
             <span class="n">ukuran_gambar</span>
         <span class="p">),</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span>
     <span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;Rekonstruksi k=</span><span class="si">{</span><span class="n">k_rek</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">interact</span><span class="p">(</span>
-    <span class="n">rekonstruksi_wajah</span><span class="p">,</span>
-    <span class="n">k_rek</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="nb">max</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span>
-            <span class="mi">50</span><span class="p">,</span>
-            <span class="n">VT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="p">),</span>
-        <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;k&quot;</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-
 <span class="c1"># ==================================================</span>
-<span class="c1"># 23. Penjelasan</span>
+<span class="c1"># PENJELASAN</span>
 <span class="c1"># ==================================================</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== ALUR PROGRAM =====&quot;</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Dataset wajah dibaca.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Semua gambar grayscale.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. Resize 100x100.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Semua gambar diubah menjadi grayscale.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. Gambar diresize menjadi 100x100.&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4. Dibentuk matriks A.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;5. Hitung Mean Face.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;6. Centering data.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;7. SVD -&gt; A = UΣVᵀ.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;8. Ambil komponen utama.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;9. Bentuk Eigenfaces.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;10. Proyeksi training.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;11. Proyeksi wajah test.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;12. Hitung Euclidean Distance.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;13. Cari wajah paling mirip.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;14. Tampilkan hasil.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;5. Dihitung Mean Face.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;6. Data dicentering.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;7. Dilakukan SVD (A = UΣVᵀ).&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;8. Diambil komponen utama.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;9. Dibentuk Eigenfaces.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;10. Data training diproyeksikan.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;11. Wajah test diproyeksikan.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;12. Dihitung Euclidean Distance.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;13. Dicari wajah paling mirip.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;14. Ditampilkan hasil pengenalan.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># ==================================================</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># EIGENFACES FACE RECOGNITION MENGGUNAKAN SVD</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># ==================================================</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>      <span class="mi">6</span> <span class="c1"># 1. Upload File</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># ==================================================</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Upload dataface.zip dan test.jpg&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== DATASET =====
+stallone : 23 gambar
+taylor : 20 gambar
+arnold : 25 gambar
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;google&#39;
+===== INFORMASI DATASET =====
+Jumlah gambar: 68
+Jumlah pixel: 10000
+Ukuran matriks A: (68, 10000)
+
+===== MEAN FACE =====
+Ukuran Mean Face: (10000,)
+
+===== SVD =====
+Ukuran U: (68, 68)
+Ukuran S: (68,)
+Ukuran VT: (68, 10000)
+
+5x5 Sigma Pertama
+[[27510.68018773     0.             0.             0.
+      0.        ]
+ [    0.         18310.9218014      0.             0.
+      0.        ]
+ [    0.             0.         13928.59135135     0.
+      0.        ]
+ [    0.             0.             0.         13049.95466049
+      0.        ]
+ [    0.             0.             0.             0.
+  10810.19474813]]
+
+===== EIGENFACES =====
+Jumlah komponen: 10
+Ukuran Eigenfaces: (10, 10000)
+
+Ukuran fitur training: (68, 10)
+Ukuran fitur test: (10,)
+
+===== HASIL FACE RECOGNITION =====
+Identitas: stallone
+File terdekat: dataset/stallone/stallone13.jpg
+Jarak: 2847.74
+Kemiripan: 73.35 %
+
+Error Rekonstruksi: 1.3138856891416667e-10
 </pre></div>
 </div>
+<img alt="_images/3e4097d4d29b51b0084689b76d32f02122510866b4e346c66480426c4b854ca0.png" src="_images/3e4097d4d29b51b0084689b76d32f02122510866b4e346c66480426c4b854ca0.png" />
+<img alt="_images/e3a3cdf9d000cfa04f217ceee47dc72cede97cc9f1f753092df0b753f4ee7326.png" src="_images/e3a3cdf9d000cfa04f217ceee47dc72cede97cc9f1f753092df0b753f4ee7326.png" />
+<img alt="_images/3844f8dc1ffcc2dab7a4c8efd2ef8165a3581525da2b13de0ab215fc6233fe6c.png" src="_images/3844f8dc1ffcc2dab7a4c8efd2ef8165a3581525da2b13de0ab215fc6233fe6c.png" />
 </div>
 </div>
 </section>
