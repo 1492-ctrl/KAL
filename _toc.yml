@@ -2,8 +2,9 @@ format: jb-book
 root: intro
 
 chapters:
+  - file: tugas_persamaan_linier
   - file: Sistem_persamaan_linier
   - file: adjoint_Matrix_5x5
+  - file: Tugas_Trans_Geo
   - file: eigenvalue
   - file: Tugas_SVD
-  - file: Tugas_Trans_Geo
